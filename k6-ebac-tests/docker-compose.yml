@@ -38,11 +38,9 @@ services:
       - k6
     ports:
       - "6565:6565"
-    environment:
-      - K6_OUT=influxdb=http://influxdb:8086/k6
-    volumes:
-      - "./dist:/home/ebac"
     depends_on:
       - influxdb
       - grafana
-    command: "run /home/ebac/user.test.js"
+    volumes:
+      - "./dist:/home/ebac"
+    command: "run --out influxdb=http://influxdb:8086/k6 /home/ebac/user.test.js"
